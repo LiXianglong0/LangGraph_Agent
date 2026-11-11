@@ -1,0 +1,9 @@
+# 总编排：同一 Git 仓库内 Agent + RAGFlow
+# 1) ./deploy/bootstrap-ragflow.sh
+# 2) ./deploy/start.sh
+name: langgraph-stack
+
+include:
+  - path: docker-compose.agent.yml
+  - path: ../third_party/ragflow/docker/docker-compose.yml
+    env_file: ragflow.env

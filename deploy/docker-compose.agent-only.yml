@@ -1,0 +1,6 @@
+# 仅启动 Agent（尚未 bootstrap RAGFlow 时使用）
+# docker compose -f deploy/docker-compose.agent-only.yml up -d --build
+name: langgraph-agent
+
+include:
+  - path: docker-compose.agent.yml

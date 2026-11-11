@@ -1,0 +1,35 @@
+# ---------- secrets / local env ----------
+.env
+.env.local
+*.pem
+*.key
+
+# ---------- runtime / generated ----------
+data/*.json.bak
+data/chat_threads.json
+__pycache__/
+*.py[cod]
+*$py.class
+*.egg-info/
+.venv/
+venv/
+.idea/
+.vscode/
+web/node_modules/
+web/dist/
+*.log
+
+# ---------- temp / scratch ----------
+scripts/_tmp_*.py
+**/_tmp_*.py
+
+# ---------- RAGFlow (bootstrap separately) ----------
+# æºç ä½“ç§¯å¤§ï¼Œç”± deploy/bootstrap æ‹‰å–ï¼›è‹¥æ”¹ç”¨ submodule å¯ç§»é™¤æ­¤è¡Œ
+third_party/ragflow/
+deploy/ragflow.env
+
+# ´óÄ£ĞÍÈ¨ÖØÎğ½ø Git£¨³¬ GitHub 100MB£©
+deploy/tei-models/**/*.safetensors
+deploy/tei-models/**/*.bin
+deploy/tei-models/**/*.onnx
+

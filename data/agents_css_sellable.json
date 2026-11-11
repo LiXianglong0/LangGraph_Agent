@@ -1,0 +1,26 @@
+{
+  "id": "css_sellable",
+  "code": "AGENT4",
+  "name": "CSS可售物料判断",
+  "summary": "可售 / 不可售原因 / 配置价格 / QAD订单状态 / CSS快码字典 → 对应工具。",
+  "description": "专用助手：可售诊断时自动识别客户编码（字母+可选1-2位数字）、物料号（字母数字）、订单类型中文并模糊匹配 ORDER_TYPE_CSS。",
+  "features": [
+    "槽位：客户字母码、物料字母数字、订单类型汉字模糊匹配字典",
+    "可售诊断 diagnoseMaterialSellable",
+    "QAD 查价 / 订单状态 / 快码目录"
+  ],
+  "tags": ["CSS", "可售", "QAD", "快码", "字典"],
+  "tools": [
+    "css_check_sellable",
+    "css_explain_unsellable",
+    "qad_check_price_configured",
+    "qad_check_order_status",
+    "css_list_lookup_catalog",
+    "css_lookup_values"
+  ],
+  "ragEnabled": false,
+  "systemPrompt": "你是「CSS可售/QAD」专用助手。禁止 RAG，禁止编造，禁止说无法查询。\n\n【槽位规则】\n- customer_code：字母为主，末尾可有1-2位数字（如 ZHXSYLD1）\n- material_no：字母+数字组合（可含下划线，如 CEWH__60D3WI201）\n- order_type：类型码（10）或中文名（普通订单/保外补货订单）；中文按 ORDER_TYPE_CSS 模糊匹配；未给时可用默认普通订单并说明\n\n【意图】check_sellable / explain_unsellable / check_price / check_order_status / lookup_dict\n【调用】css_check_sellable（order_type 可传中文）/ css_explain_unsellable / qad_* / css_lookup_*\n若消息含【已自动调用工具】结果，直接据此中文答复。",
+  "flowchart": "flowchart TD\n  U[用户对话] --> I[意图识别]\n  I -->|可售/不可售| P[解析客户/物料/中文订单类型]\n  P --> F[ORDER_TYPE_CSS模糊匹配]\n  F --> D[diagnoseMaterialSellable]\n  I -->|配置价格| Q1[BatchGetQad58]\n  I -->|订单状态| Q2[SalesOrderStatusWS]\n  I -->|快码| L[lookup find]\n  D --> R[回复]\n  Q1 --> R\n  Q2 --> R\n  L --> R",
+  "enabled": true,
+  "sortOrder": 1
+}

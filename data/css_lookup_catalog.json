@@ -1,0 +1,46 @@
+{
+  "version": 1,
+  "description": "CSS/SAAF 快码（lookup）经验目录：记录 lookupType、systemCode 与业务用途；实际码值通过 baseLookupValuesService/find 实时拉取。",
+  "items": [
+    {
+      "lookupType": "ORDER_TYPE_CSS",
+      "systemCode": "CSS",
+      "lan": "CN",
+      "deleteFlag": 0,
+      "name": "订单类型",
+      "usage": "CSS 订单类型字典。lookupCode 为订单类型码（如 10、280、282），meaning 为中文名称（如普通订单）。可售诊断、下单、订单设置等场景用于翻译与校验订单类型。",
+      "usedIn": ["可售物料诊断", "CSS 下单", "订单设置", "AGENT4 槽位 order_type"],
+      "notes": "启用项约 80+ 条；与 diagnoseMaterialSellable 的 orderType / orderTypeDesc 对应。"
+    },
+    {
+      "lookupType": "ORDER_STATUS_FACTORY",
+      "systemCode": "CSS",
+      "lan": "CN",
+      "deleteFlag": 0,
+      "name": "CSS订单状态",
+      "usage": "CSS 工厂/订单侧状态字典。lookupCode 为状态码，meaning 为中文名称。用于 CSS 订单列表、详情展示与状态流转说明（与 QAD_ORDER_STATUS 不同体系，勿混用）。",
+      "usedIn": ["CSS 订单状态展示", "工厂订单流程"],
+      "notes": "00提交失败；05待提交；10待上传；20待确认；30待解信；40已解信；70已开票；80同步异常；100 QAD已删除；110已作废。"
+    },
+    {
+      "lookupType": "QAD_ORDER_STATUS",
+      "systemCode": "CSS",
+      "lan": "CN",
+      "deleteFlag": 0,
+      "name": "QAD订单状态",
+      "usage": "QAD 销售订单状态码字典。lookupCode 为状态码（01/02/05/06/10/12/15/20），meaning 为中文含义。查询 SalesOrderStatusWS 返回的 billStatusCode 时应用本字典翻译。",
+      "usedIn": ["QAD 订单状态查询", "AGENT4 qad_check_order_status"],
+      "notes": "已知：01待确认；02/05待解新；06/10/12已解信；15已开票；20 QAD已删除。"
+    },
+    {
+      "lookupType": "SERVICE_PROVIDER_LX_FILTER",
+      "systemCode": "CSS",
+      "lan": "CN",
+      "deleteFlag": 0,
+      "name": "服务商滤芯下单过滤",
+      "usage": "服务商下单滤芯物料时的授权过滤名单；未授权净水服务商不能下单滤芯物料。lookupCode 多为服务商编码，meaning 为服务商名称。",
+      "usedIn": ["服务商滤芯下单", "净水服务商授权"],
+      "notes": "首条常为列头说明（如 lookupCode=(QAD)服务商编码）；业务行含 enabledFlag、起止日期。"
+    }
+  ]
+}

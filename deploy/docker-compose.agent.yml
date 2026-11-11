@@ -1,0 +1,26 @@
+# 仅 Agent（FastAPI）服务定义，可被总编排 include
+services:
+  agent-api:
+    build:
+      context: ..
+      dockerfile: deploy/Dockerfile
+    container_name: langgraph-agent-api
+    ports:
+      - "${AGENT_API_PORT:-8001}:8001"
+    env_file:
+      - path: ../.env
+        required: false
+    environment:
+      # 容器内通过 compose 网络访问同栈的 RAGFlow（服务名 ragflow-cpu）
+      RAGFLOW_BASE_URL: ${RAGFLOW_BASE_URL:-http://ragflow-cpu}
+      RAGFLOW_ENABLED: ${RAGFLOW_ENABLED:-false}
+      RAGFLOW_API_KEY: ${RAGFLOW_API_KEY:-}
+      RAGFLOW_DATASET_IDS: ${RAGFLOW_DATASET_IDS:-}
+      ZHIPU_API_KEY: ${ZHIPU_API_KEY:-}
+    networks:
+      - ragflow
+    restart: unless-stopped
+
+networks:
+  # 与 RAGFlow 官方 compose 中的 ragflow 网络合并为同一网络
+  ragflow:
